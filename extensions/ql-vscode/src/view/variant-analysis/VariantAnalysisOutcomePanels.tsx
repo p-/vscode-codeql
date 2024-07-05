@@ -72,6 +72,7 @@ export const VariantAnalysisOutcomePanels = ({
     variantAnalysis.skippedRepos?.accessMismatchRepos?.repositoryCount ?? 0;
 
   const [resultFormat, setResultFormat] = useState(ResultFormat.Alerts);
+  const [maxThreadFlowSteps, setMaxThreadFlowSteps] = useState(1337);
   const warnings = (
     <WarningsContainer>
       {variantAnalysis.status === VariantAnalysisStatus.Canceled && (
@@ -127,8 +128,10 @@ export const VariantAnalysisOutcomePanels = ({
         <RepositoriesSearchSortRow
           filterSortValue={filterSortState}
           resultFormatValue={resultFormat}
+          maxThreadFlowStepsValue={maxThreadFlowSteps}
           onFilterSortChange={setFilterSortState}
           onResultFormatChange={setResultFormat}
+          onMaxThreadFlowStepsChange={setMaxThreadFlowSteps}
           variantAnalysisQueryKind={variantAnalysis.query.kind}
         />
         <VariantAnalysisAnalyzedRepos
@@ -137,6 +140,7 @@ export const VariantAnalysisOutcomePanels = ({
           repositoryResults={repositoryResults}
           filterSortState={filterSortState}
           resultFormat={resultFormat}
+          maxThreadFlowSteps={maxThreadFlowSteps}
           selectedRepositoryIds={selectedRepositoryIds}
           setSelectedRepositoryIds={setSelectedRepositoryIds}
         />
@@ -150,8 +154,10 @@ export const VariantAnalysisOutcomePanels = ({
       <RepositoriesSearchSortRow
         filterSortValue={filterSortState}
         resultFormatValue={resultFormat}
+        maxThreadFlowStepsValue={maxThreadFlowSteps}
         onFilterSortChange={setFilterSortState}
         onResultFormatChange={setResultFormat}
+        onMaxThreadFlowStepsChange={setMaxThreadFlowSteps}
         variantAnalysisQueryKind={variantAnalysis.query.kind}
       />
       <VSCodePanels>
@@ -187,6 +193,7 @@ export const VariantAnalysisOutcomePanels = ({
               repositoryResults={repositoryResults}
               filterSortState={filterSortState}
               resultFormat={resultFormat}
+              maxThreadFlowSteps={maxThreadFlowSteps}
               selectedRepositoryIds={selectedRepositoryIds}
               setSelectedRepositoryIds={setSelectedRepositoryIds}
             />

@@ -101,6 +101,8 @@ export type RepoRowProps = {
 
   resultFormat?: ResultFormat;
 
+  maxThreadFlowSteps?: number;
+
   selected?: boolean;
   onSelectedChange?: (repositoryId: number, selected: boolean) => void;
 };
@@ -172,6 +174,7 @@ export const RepoRow = ({
   interpretedResults,
   rawResults,
   resultFormat = ResultFormat.Alerts,
+  maxThreadFlowSteps = 1000, // don't know if value is needed here
   selected,
   onSelectedChange,
 }: RepoRowProps) => {
@@ -309,6 +312,7 @@ export const RepoRow = ({
           interpretedResults={interpretedResults}
           rawResults={rawResults}
           resultFormat={resultFormat}
+          maxThreadFlowSteps={maxThreadFlowSteps}
         />
       )}
     </div>

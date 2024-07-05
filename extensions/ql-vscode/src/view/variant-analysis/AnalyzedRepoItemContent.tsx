@@ -59,6 +59,8 @@ export type AnalyzedRepoItemContentProps = {
   rawResults?: AnalysisRawResults;
 
   resultFormat: ResultFormat;
+
+  maxThreadFlowSteps: number;
 };
 
 export const AnalyzedRepoItemContent = ({
@@ -67,6 +69,7 @@ export const AnalyzedRepoItemContent = ({
   interpretedResults,
   rawResults,
   resultFormat,
+  maxThreadFlowSteps,
 }: AnalyzedRepoItemContentProps) => {
   const chosenResultFormat = chooseResultFormat(
     interpretedResults,
@@ -114,11 +117,17 @@ export const AnalyzedRepoItemContent = ({
       )}
       {interpretedResults && chosenResultFormat === ResultFormat.Alerts && (
         <InterpretedResultsContainer>
-          {interpretedResults.map((r, i) => (
-            <InterpretedResultItem key={i}>
-              <AnalysisAlertResult alert={r} />
-            </InterpretedResultItem>
-          ))}
+          {interpretedResults
+            .filter((r) =>
+              r.codeFlows.some(
+                (cf) => cf.threadFlows.length <= maxThreadFlowSteps,
+              ),
+            )
+            .map((r, i) => (
+              <InterpretedResultItem key={i}>
+                <AnalysisAlertResult alert={r} />
+              </InterpretedResultItem>
+            ))}
         </InterpretedResultsContainer>
       )}
       {rawResults && chosenResultFormat === ResultFormat.RawResults && (

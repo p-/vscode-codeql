@@ -27,6 +27,8 @@ export type VariantAnalysisAnalyzedReposProps = {
 
   resultFormat: ResultFormat;
 
+  maxThreadFlowSteps: number;
+
   selectedRepositoryIds?: number[];
   setSelectedRepositoryIds?: Dispatch<SetStateAction<number[]>>;
 };
@@ -37,6 +39,7 @@ export const VariantAnalysisAnalyzedRepos = ({
   repositoryResults,
   filterSortState,
   resultFormat,
+  maxThreadFlowSteps,
   selectedRepositoryIds,
   setSelectedRepositoryIds,
 }: VariantAnalysisAnalyzedReposProps) => {
@@ -96,6 +99,7 @@ export const VariantAnalysisAnalyzedRepos = ({
             interpretedResults={results?.interpretedResults}
             rawResults={results?.rawResults}
             resultFormat={resultFormat}
+            maxThreadFlowSteps={maxThreadFlowSteps}
             selected={selectedRepositoryIds?.includes(repository.repository.id)}
             onSelectedChange={onSelectedChange}
           />

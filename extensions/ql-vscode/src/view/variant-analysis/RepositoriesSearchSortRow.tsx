@@ -7,6 +7,7 @@ import type {
   SortKey,
 } from "../../variant-analysis/shared/variant-analysis-filter-sort";
 import { SearchBox } from "../common/SearchBox";
+import { MaxThreadFlowStepsBox } from "../common/MaxThreadFlowStepsBox";
 import { RepositoriesSort } from "./RepositoriesSort";
 import { RepositoriesFilter } from "./RepositoriesFilter";
 import { RepositoriesResultFormat } from "./RepositoriesResultFormat";
@@ -16,8 +17,10 @@ import { isSarifResultsQueryKind } from "../../common/query-metadata";
 type Props = {
   filterSortValue: RepositoriesFilterSortState;
   resultFormatValue: ResultFormat;
+  maxThreadFlowStepsValue: number;
   onFilterSortChange: Dispatch<SetStateAction<RepositoriesFilterSortState>>;
   onResultFormatChange: Dispatch<SetStateAction<ResultFormat>>;
+  onMaxThreadFlowStepsChange: Dispatch<SetStateAction<number>>;
   variantAnalysisQueryKind: string | undefined;
 };
 
@@ -41,6 +44,10 @@ const RepositoriesSortColumn = styled(RepositoriesSort)`
   flex: 1;
 `;
 
+const RepositoriesMaxThreadFlowStepsColumn = styled(MaxThreadFlowStepsBox)`
+  flex: 1;
+`;
+
 const RepositoriesResultFormatColumn = styled(RepositoriesResultFormat)`
   flex: 1;
 `;
@@ -54,8 +61,10 @@ function showResultFormatColumn(
 export const RepositoriesSearchSortRow = ({
   filterSortValue,
   resultFormatValue,
+  maxThreadFlowStepsValue,
   onFilterSortChange,
   onResultFormatChange,
+  onMaxThreadFlowStepsChange,
   variantAnalysisQueryKind,
 }: Props) => {
   const handleSearchValueChange = useCallback(
@@ -95,6 +104,13 @@ export const RepositoriesSearchSortRow = ({
     [onResultFormatChange],
   );
 
+  const handleMaxThreadFlowStepsValueChange = useCallback(
+    (maxThreadFlowSteps: number) => {
+      onMaxThreadFlowStepsChange(maxThreadFlowSteps);
+    },
+    [onMaxThreadFlowStepsChange],
+  );
+
   return (
     <Container>
       <RepositoriesSearchColumn
@@ -109,6 +125,11 @@ export const RepositoriesSearchSortRow = ({
       <RepositoriesSortColumn
         value={filterSortValue.sortKey}
         onChange={handleSortKeyChange}
+      />
+      <RepositoriesMaxThreadFlowStepsColumn
+        value={maxThreadFlowStepsValue}
+        placeholder="Max number of steps in a thread flow"
+        onChange={handleMaxThreadFlowStepsValueChange}
       />
       {showResultFormatColumn(variantAnalysisQueryKind) && (
         <RepositoriesResultFormatColumn
