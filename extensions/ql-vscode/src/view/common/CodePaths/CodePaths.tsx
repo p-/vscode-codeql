@@ -12,6 +12,12 @@ const ShowPathsLink = styled(VSCodeLink)`
   cursor: pointer;
 `;
 
+const Label = styled.span`
+  color: var(--vscode-descriptionForeground);
+  margin-right: 10px;
+  margin-left: 10px;
+`;
+
 export type CodePathsProps = {
   codeFlows: CodeFlow[];
   ruleDescription: string;
@@ -37,9 +43,14 @@ export const CodePaths = ({
     });
   };
 
+  const allPathLengths = codeFlows
+    .map((codeFlow) => codeFlow.threadFlows.length)
+    .flat();
+  const shortestPath = Math.min(...allPathLengths);
   return (
     <>
       <ShowPathsLink onClick={onShowPathsClick}>Show paths</ShowPathsLink>
+      <Label>(Shortest: {shortestPath})</Label>
     </>
   );
 };
