@@ -4,7 +4,7 @@ import type {
   Result as ResultKeysResult,
   ResultKey,
 } from "./result-keys";
-import { getAllPaths, keyToString } from "./result-keys";
+import { getAllPaths, getShortestPath, keyToString } from "./result-keys";
 import { info, listUnordered } from "./octicons";
 import { selectableZebraStripe } from "./result-table-utils";
 import { AlertTableDropdownIndicatorCell } from "./AlertTableDropdownIndicatorCell";
@@ -12,6 +12,7 @@ import { useCallback, useMemo } from "react";
 import { SarifLocation } from "./locations/SarifLocation";
 import { SarifMessageWithLocations } from "./locations/SarifMessageWithLocations";
 import { AlertTablePathRow } from "./AlertTablePathRow";
+import { VSCodeBadge } from "@vscode/webview-ui-toolkit/react";
 
 interface Props {
   result: Result;
@@ -99,6 +100,9 @@ export function AlertTableResultRow(props: Props) {
               onClick={handleDropdownClick}
             />
             <td className="vscode-codeql__icon-cell">{listUnordered}</td>
+            <td className="vscode-codeql__icon-cell">
+              <VSCodeBadge>{getShortestPath(result)}</VSCodeBadge>
+            </td>
             <td colSpan={2}>{msg}</td>
           </>
         )}

@@ -103,6 +103,12 @@ export function equalsNotUndefined(
   );
 }
 
+export function getShortestPath(result: SarifResult): number {
+  const paths = getAllPaths(result);
+  const allPathLengths = paths.map((path) => path.locations.length);
+  return Math.min(...allPathLengths);
+}
+
 /**
  * Returns the list of paths in the given SARIF result.
  *
